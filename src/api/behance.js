@@ -1,6 +1,10 @@
 import axios from 'axios';
-import { apiBehance } from '../config'
+import { apiBehance as apiKey } from '../config';
 
-const defaultUrl = ""
+const behance = axios.create({
+  baseURL: 'http://behance.net/v2/',
+  headers: { 'Content-Type': 'application/json' },
+  params: { apiKey }
+});
 
-export const get = () => axios.g
+export const get = (route, params) => behance.get(route, params);

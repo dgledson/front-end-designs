@@ -1,26 +1,25 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import Counter from './containers/Counter';
-import { Main, Header, Logo, Link } from './components/App';
-import './App.css';
+import React from 'react';
+import { compose, applyMiddleware, createStore } from 'redux';
+import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
 
-class App extends Component {
-  render() {
-    return (
-      <Main>
-        <Header>
-          <Logo src={logo} alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <Link href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-            Learn React
-          </Link>
-          <Counter />
-        </Header>
-      </Main>
-    );
-  }
-}
+import rootSaga from './redux/sagas';
+import reducers from './redux/reducers';
+import Home from './containers/Home';
 
-export default App;
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+  reducers,
+  compose(
+    applyMiddleware(sagaMiddleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+);
+
+sagaMiddleware.run(rootSaga);
+
+export default () => (
+  <Provider store={store}>
+    <Home />
+  </Provider>
+);
