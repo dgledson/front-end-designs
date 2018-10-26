@@ -27,4 +27,7 @@ export const Link = styled.a`
     rel: ${props => props.rel}
     target: ${props => props.target}
     color: #61dafb;
-`
+`;
+
+export const PrimaryButton = styled.button`
+`;

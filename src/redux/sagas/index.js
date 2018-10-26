@@ -1,6 +1,8 @@
 import { all } from 'redux-saga/effects';
-import collections from '../sagas/collections';
+import collections from './collections';
 
 export default function* rootSaga() {
-  yield all([...collections ]);
-}
+  yield all([
+    ...collections
+  ])
+} 

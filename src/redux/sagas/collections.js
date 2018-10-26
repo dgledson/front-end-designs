@@ -3,7 +3,8 @@ import constants from '../actionTypes/collections';
 import { get } from '../../api/behance';
 
 function* getCollections(action) {
-  yield put({ type: constants.GET_COLLECTIONS });
+  console.log("me chamaram aqui na call")
+  yield put({ type: constants.GET_COLLECTIONS_REQUEST});
   try {
     const data = yield call(get, 'collections', { q: action.query });
     yield put({ type: constants.GET_COLLECTIONS_SUCCESS, data });
@@ -12,4 +13,4 @@ function* getCollections(action) {
   }
 }
 
-export default [takeLatest(constants.GET_COLLECTIONS), getCollections];
+export default [takeLatest(constants.GET_COLLECTIONS, getCollections)];
